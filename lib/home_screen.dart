@@ -58,6 +58,12 @@ class HomeScreen extends StatelessWidget {
                   size: 100,
                   color: Colors.amberAccent,
                 ),
+                const Center(
+                  child: Text(
+                    "Error !!",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Text(
                   "${snapshot.error}",
                   style: const TextStyle(
