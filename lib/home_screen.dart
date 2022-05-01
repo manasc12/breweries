@@ -21,10 +21,10 @@ class HomeScreen extends StatelessWidget {
           future: getBreweries(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<Brewery> allCountriesList = snapshot.data!;
+              List<Brewery> allBreweriesList = snapshot.data!;
               return Scrollbar(
                 child: ListView.builder(
-                  itemCount: allCountriesList.length,
+                  itemCount: allBreweriesList.length,
                   itemBuilder: (context, index) {
                     return ListTile(
                       shape: RoundedRectangleBorder(
@@ -37,12 +37,12 @@ class HomeScreen extends StatelessWidget {
                         color: index % 2 != 0 ? Colors.white : Colors.amber,
                       ),
                       title: Text(
-                        'Name: ' + allCountriesList[index].name,
+                        'Name: ' + allBreweriesList[index].name,
                         style: TextStyle(
                             color:
                                 index % 2 != 0 ? Colors.white : Colors.amber),
                       ),
-                      trailing: Text('City: ' + allCountriesList[index].city,
+                      trailing: Text('City: ' + allBreweriesList[index].city,
                           style: TextStyle(
                               color: index % 2 != 0
                                   ? Colors.white
