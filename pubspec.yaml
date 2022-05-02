@@ -30,6 +30,9 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
+  numberpicker: ^2.1.1
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,80 +1,98 @@
-import 'package:flutter/material.dart';
-import 'package:breweries/model.dart';
+import 'dart:ui';
 
-//HomeScreen: This is the only one screen in the app which lists all the Breweries in a Scrollable List
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+import 'package:breweries/breweries_listing_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:numberpicker/numberpicker.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String _searchQuery = '';
+  int _maxResults = 20;
+
+  final _focusNode = FocusNode();
+  final _searchQueryController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'List of Breweries',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      body: Center(
-        child: FutureBuilder<List<Brewery>>(
-          future: getBreweries(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<Brewery> allBreweriesList = snapshot.data!;
-              return Scrollbar(
-                child: ListView.builder(
-                  itemCount: allBreweriesList.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      selected: true,
-                      selectedTileColor:
-                          index % 2 != 0 ? Colors.amberAccent : Colors.white,
-                      leading: Icon(
-                        Icons.wine_bar_rounded,
-                        color: index % 2 != 0 ? Colors.white : Colors.amber,
-                      ),
-                      title: Text(
-                        'Name: ' + allBreweriesList[index].name,
-                        style: TextStyle(
-                            color:
-                                index % 2 != 0 ? Colors.white : Colors.amber),
-                      ),
-                      trailing: Text('City: ' + allBreweriesList[index].city,
-                          style: TextStyle(
-                              color: index % 2 != 0
-                                  ? Colors.white
-                                  : Colors.amber)),
-                    );
+    return GestureDetector(
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Search Breweries'),
+          ),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value;
+                    });
                   },
+                  decoration: const InputDecoration(labelText: 'Search Query'),
+                  focusNode: _focusNode,
+                  controller: _searchQueryController,
                 ),
-              );
-            } else if (snapshot.hasError) {
-              return ListView(children: [
-                const Icon(
-                  Icons.wine_bar_rounded,
-                  size: 100,
-                  color: Colors.amberAccent,
-                ),
-                const Center(
-                  child: Text(
-                    "Error !!",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
+              ),
+              NumberPicker(
+                minValue: 1,
+                maxValue: 50,
+                value: _maxResults,
+                onChanged: (value) {
+                  setState(() {
+                    _maxResults = value;
+                  });
+                },
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed: () => setState(() {
+                    final newValue = _maxResults - 1;
+                    _maxResults = newValue.clamp(1, 50);
+                  }),
                 ),
                 Text(
-                  "${snapshot.error}",
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                  'Max Results:  $_maxResults',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => setState(() {
+                    final newValue = _maxResults + 1;
+                    _maxResults = newValue.clamp(1, 50);
+                  }),
                 )
-              ]);
-            }
-            return const CircularProgressIndicator();
-          },
-        ),
-      ),
+              ]),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                    minimumSize: const Size(150, 40), //////// HERE
+                  ),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return BreweriesListingScreen(
+                          searchQuery: _searchQuery,
+                          maxResults: _maxResults,
+                        );
+                      },
+                    ));
+                  },
+                  child: const Text('Go'))
+            ],
+          )),
+      onTap: () {
+        setState(() {
+          _focusNode.unfocus();
+        });
+      },
     );
   }
 }
