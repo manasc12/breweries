@@ -24,8 +24,19 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             title: const Text('Search Breweries'),
           ),
-          body: Column(
+          body: ListView(
             children: [
+              const SizedBox(
+                height: 60,
+              ),
+              const Icon(
+                Icons.wine_bar_rounded,
+                size: 100,
+                color: Colors.amberAccent,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
@@ -69,23 +80,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   }),
                 )
               ]),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                    minimumSize: const Size(150, 40), //////// HERE
-                  ),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return BreweriesListingScreen(
-                          searchQuery: _searchQuery,
-                          maxResults: _maxResults,
-                        );
-                      },
-                    ));
-                  },
-                  child: const Text('Go'))
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.2),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      minimumSize: const Size(150, 40), //////// HERE
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return BreweriesListingScreen(
+                            searchQuery: _searchQuery,
+                            maxResults: _maxResults,
+                          );
+                        },
+                      ));
+                    },
+                    child: const Text('Go')),
+              )
             ],
           )),
       onTap: () {
