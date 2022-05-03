@@ -49,15 +49,13 @@ class BreweriesListingScreen extends StatelessWidget {
                         selected: true,
                         selectedTileColor:
                             index % 2 != 0 ? Colors.amberAccent : Colors.white,
-                        leading: SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: ImageIcon(
-                            AssetImage('lib/assets/beer.png'),
-                            size: 150,
-                            color: index % 2 != 0 ? Colors.white : Colors.amber,
-                          ),
-                        ),
+                        leading: CircleAvatar(
+                            backgroundColor: Colors.grey[300],
+                            child: const Image(
+                              height: 30,
+                              width: 30,
+                              image: AssetImage("lib/assets/beer.png"),
+                            )),
                         title: Text(
                           'Name: ' + allBreweriesList[index].name,
                           style: TextStyle(

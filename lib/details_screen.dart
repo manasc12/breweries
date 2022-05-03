@@ -18,15 +18,19 @@ class DetailsScreen extends StatelessWidget {
               return Scrollbar(
                 child: ListView(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
-                    const CircleAvatar(
-                      child: Image(
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.grey[300],
+                      child: const Image(
+                        width: 60,
+                        height: 60,
                         image: AssetImage("lib/assets/beer.png"),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ListTile(
