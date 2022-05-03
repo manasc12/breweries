@@ -18,6 +18,17 @@ class DetailsScreen extends StatelessWidget {
               return Scrollbar(
                 child: ListView(
                   children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    const CircleAvatar(
+                      child: Image(
+                        image: AssetImage("lib/assets/beer.png"),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     ListTile(
                       title: buildText('ID', context),
                       trailing: buildText(breweryState.breweryObj.id, context),
@@ -75,9 +86,9 @@ class DetailsScreen extends StatelessWidget {
               );
             } else if (breweryState.status == Status.failure) {
               return ListView(children: [
-                const Icon(
-                  Icons.wine_bar_rounded,
-                  size: 100,
+                const ImageIcon(
+                  AssetImage('lib/assets/beer.png'),
+                  size: 150,
                   color: Colors.amberAccent,
                 ),
                 const Center(

@@ -49,9 +49,14 @@ class BreweriesListingScreen extends StatelessWidget {
                         selected: true,
                         selectedTileColor:
                             index % 2 != 0 ? Colors.amberAccent : Colors.white,
-                        leading: Icon(
-                          Icons.wine_bar_rounded,
-                          color: index % 2 != 0 ? Colors.white : Colors.amber,
+                        leading: SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: ImageIcon(
+                            AssetImage('lib/assets/beer.png'),
+                            size: 150,
+                            color: index % 2 != 0 ? Colors.white : Colors.amber,
+                          ),
                         ),
                         title: Text(
                           'Name: ' + allBreweriesList[index].name,
@@ -71,9 +76,9 @@ class BreweriesListingScreen extends StatelessWidget {
               );
             } else if (snapshot.hasError) {
               return ListView(children: [
-                const Icon(
-                  Icons.wine_bar_rounded,
-                  size: 100,
+                const ImageIcon(
+                  AssetImage('lib/assets/beer.png'),
+                  size: 150,
                   color: Colors.amberAccent,
                 ),
                 const Center(

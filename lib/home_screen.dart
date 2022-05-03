@@ -29,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 60,
               ),
-              const Icon(
-                Icons.wine_bar_rounded,
-                size: 100,
-                color: Colors.amberAccent,
+              const Image(
+                image: AssetImage("lib/assets/beer.png"),
+                width: 150,
+                height: 150,
               ),
               const SizedBox(
                 height: 20,
